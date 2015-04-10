@@ -5,20 +5,21 @@ def remove(enteredlist, number):
         if enteredlist[i] < number:
             enteredlist.pop(i)
 
-def copyElementsUnder(list, number):
+def copyElementsUnder(alist, number):
     """Returns a copy of the list, removing elements under number"""
-    return [i for i in list if i < number]
+    return [i for i in alist if i < number]
 
-def removeByList(list, collection):
+def removeByList(lst, collection):
     """Removes all elelements in the list that are in collection"""
     for i in collection:
-        while i in list:
-            list.remove(i)
+        while i in lst:
+            lst.remove(i)
 
-def removeDuplicates(list):
+def removeDuplicates(collection):
     """Returns a copy of the list with duplicates removed"""
-    copy = set(list)
-    copy = list(copy).sort()
+    copy = list(set(collection))
+    copy.sort()
+    return copy
 
 def listOverlap(collection1, collection2):
     """Returns the a list of the overlap of two colletions"""
@@ -38,27 +39,27 @@ def createList(start, stop, step):
 
 def clubEntry(name, guestlist):
     """Returns True if name is on the guestlist and True, False if not on or listed as False"""
-    if not name in guestlist or guestlist[name] == false:
+    if not name in guestlist or guestlist[name] == False:
         return False
     else:
         return True
 
 def factorial(number):
     """Returns the factorial of the number, or False if it has no factorial"""
-    if number <= 0:
+    if number < 0:
         return False
-    elif number == 1:
+    elif number == 0:
         return 1
     else:
         return number * factorial(number-1)
 
 def fibSequence(number):
    """Returns a list of the fibonnaci sequence up to the position of number"""
-   if number <= 0:
+   if number < 0:
        return False
-   elif number == 1:
+   elif number == 0:
        return [1]
-   elif number == 2:
+   elif number == 1:
        return[1,1]
    else:
         result = fibSequence(number-1)
@@ -67,10 +68,12 @@ def fibSequence(number):
 
 def hanoi(number):
     """returns the minimum number of steps needed to complete the towers of hanoi for n pieces"""
-    if number == 1:
+    if number <= 0:
+        return False
+    elif number == 1:
         return 1
     else:
-        return hanoi(number)*2 + 1
+        return hanoi(number-1)*2 + 1
 
 def infiniteRecursion(number):
     """Will return the maximum level of recursion. Number should start at 0"""
@@ -119,7 +122,7 @@ def decode(string):
     if len(string) == 2:
         return codemap[int(string)]
     else:
-        return codemamap[int(string[0:2])] + decode(string[2:])
+        return codemap[int(string[0:2])] + decode(string[2:])
 
 def encrypt(word, encryptionkey):
     word = encode(word)
@@ -161,7 +164,3 @@ def validpapersize(string):
                 return False
        return True
 
-
-        
-        
-    
