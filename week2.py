@@ -1,4 +1,5 @@
-#Test: last element, first element, multiple elements, all
+import string
+
 def remove(enteredlist, number):
     """removes all numbers in the list smaller than number""" 
     for i in range(len(enteredlist)-1, -1,-1):
@@ -124,43 +125,51 @@ def decode(string):
     else:
         return codemap[int(string[0:2])] + decode(string[2:])
 
-def encrypt(word, encryptionkey):
+def encrypt(word, key):
     word = encode(word)
     result = ""
     keypointer = 0
-    for i in range(0, len(word), 2):
-        if keypointer > len(encryptionkey):
-            keypointer = 0
-        token = str(int(word(i,i+2)) + encryptionkey(keypointer))
-        if len(token) < 1:
+    for i in range(0,len(word),2):
+        token = int(word[i:i+2])
+        token += int(key[keypointer])
+        token = str(token)
+        if len(token) == 1:
             token = "0"+token
         result += token
+        if keypointer >= len(key)-1:
+            keypointer = 0
+        else:
+            keypointer += 1
     return result
 
-def paperSize(string):
-    if validpapersize(string):
-         if string == "A0":
+def paperSize(papersize):
+    if validpapersize(papersize):
+         if papersize == "A0":
              return 841, 1189
-         elif string[1] == 0:
-             smallshort, smalllong = paperSize("A"+string[2:])
-             return smalllong, smarllshort*2
+         elif papersize[1] == "0":
+             smallshort, smalllong = paperSize("A"+papersize[2:])
+             return smalllong, smallshort*2
          else: 
-             anumber = int(string[1:0])
+             anumber = int(papersize[1:])
              smallshort, smalllong = paperSize("A"+str(anumber-1))
-             return smalllong/2 , smallshort         
-
-def validpapersize(string):
-    """Returns True if a valid papersize, false otherwse"""
-    if string[0] != "A" or string[1] != "0":
+             return smalllong//2 , smallshort
+    else:
         return False
-    elif string[1] == "0":
-        for i in string[1:]:
+
+def validpapersize(papersize):
+    """Returns True if a valid papersize, false otherwse"""
+    if papersize[0] != "A":
+        return False
+    elif papersize[1] == "0":
+        for i in papersize[1:]:
             if i != "0":
                 return False
         return True
     else:
-       for i in string[1:]:
+       for i in papersize[1:]:
             if i not in string.digits:
                 return False
        return True
+
+
 

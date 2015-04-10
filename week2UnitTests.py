@@ -235,8 +235,38 @@ class TestFunctions(unittest.TestCase):
         actual = functions.decode("1")
         self.assertEqual(expected, actual)
 
-    
+    def test_encrypt_complexkey(self):
+        original = "AbCdEfGhIjK"
+        key  = "1234"
+        expected = "0103050705070911091113"
+        actual = functions.encrypt(original, key)
+        self.assertEqual(expected, actual)
+
+    def test_encrypt_singlekey(self):
+        original = "AbCdEfGhIjK"
+        key  = "1"
+        expected = "0102030405060708091011"
+        actual = functions.encrypt(original, key)
+        self.assertEqual(expected, actual)
+
+    def test_papersize_A000(self):
+        self.assertEqual((1682, 2378), functions.paperSize("A000"))
         
+    def test_papersize_A00(self):
+        self.assertEqual((1189, 1682), functions.paperSize("A00"))
+
+    def test_papersize_A0(self):
+        self.assertEqual((841, 1189), functions.paperSize("A0"))
+
+    def test_papersize_A1(self):
+        self.assertEqual((594, 841), functions.paperSize("A1"))
+
+    def test_papersize_A2(self):
+        self.assertEqual((420, 594), functions.paperSize("A2"))
+
+    def test_papersize_A3(self):
+        self.assertEqual((297, 420), functions.paperSize("A3"))
+
 
 
 if __name__ == '__main__':
