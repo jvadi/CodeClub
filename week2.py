@@ -142,6 +142,24 @@ def encrypt(word, key):
             keypointer += 1
     return result
 
+def decrypt(word, key):
+    result = ""
+    keypointer = 0
+    for i in range(0,len(word),2):
+        token = int(word[i:i+2])
+        token -= int(key[keypointer])
+        token = str(token)
+        if len(token) == 1:
+            token = "0"+token
+        result += token
+        if keypointer >= len(key)-1:
+            keypointer = 0
+        else:
+            keypointer += 1
+    return decode(result)
+        
+
+
 def paperSize(papersize):
     if validpapersize(papersize):
          if papersize == "A0":
